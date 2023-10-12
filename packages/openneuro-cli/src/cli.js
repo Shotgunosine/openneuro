@@ -6,6 +6,14 @@ import { gitCredential } from './gitCredential.js'
 import { gitAnnexRemote } from './gitAnnexRemote.js'
 import { create } from './createDataset.js'
 
+if (process.argv[1].endsWith('git-credential-openneuro')) {
+  gitCredential()
+} else if (process.argv[1].endsWith('git-annex-remote-openneuro')) {
+  gitAnnexRemote()
+} else if (!process.argv.slice(2).length) {
+  commander.help()
+} else {
+
 commander.version(version).description('OpenNeuro command line tools.')
 
 commander.addHelpText(
@@ -75,11 +83,4 @@ commander
   .action(ls)
 
 commander.parse(process.argv)
-
-if (process.argv[1].endsWith('git-credential-openneuro')) {
-  gitCredential()
-} else if (process.argv[1].endsWith('git-annex-remote-openneuro')) {
-  gitAnnexRemote()
-} else if (!process.argv.slice(2).length) {
-  commander.help()
 }
